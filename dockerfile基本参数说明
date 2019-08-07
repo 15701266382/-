@@ -1,0 +1,102 @@
+  Dockerfile是用来构建Docker镜像的构建文件，是由一系列命令和参数构成的脚本。
+
+    构建三步骤：1、编写dockerfile文件；2、docker build；3、docker run
+  dockerfile内容基础知识：
+
+        1、每条保留字指令必须为大写字母且后面要跟随至少一个参数；
+
+        2、指令安装从上到下，顺序执行；
+
+        3、#号表示注释；
+
+        4、 每条指令都会创建一个新的镜像层，并对镜像进行提交；
+ dockerfile执行的大致流程：
+
+        1、docker从基础镜像运行一个容器；
+
+        2、执行一条指令并对容器做修改；
+
+        3、执行类似docker commit的操作提交一个新的镜像层；
+
+        4、docker再基于刚提交的镜像运行一个新的容器；
+
+        5、执行dockerfile中的下一条指令直到所有指令都执行完成。
+
+    总结：从应用软件的角度来看，dockerfile，docker镜像与docker容器分别代表软件的三个不同阶段：
+
+        a) dockerfile是软件的原材料；
+
+        b）docker镜像是软件的交付品
+
+        c）docker容器则可以认为是软件的运行态。
+
+    dockerfile面向开发，docker镜像成为交付标准，docker容器则涉及部署与运维，三者缺一不可，合力充当docker体系的基石。
+
+image.png
+
+    所以，以后开发向运维工程师就不再交部署文件了，而是交镜像。运维工程师拿到镜像，生成容器运行就可以了。
+dockerfile保留字指令
+
+1、FROM
+
+    FROM：基础镜像，当前新镜像是基于哪个镜像的
+
+2、MAINTAINER
+
+    MAINTAINER：镜像维护者的姓名和邮箱地址
+
+3、RUN
+
+    RUN：容器构建时需要运行的命令
+
+4、EXPOSE
+
+    EXPOSE：当前容器对外暴露的端口号
+
+5、WORKDIR
+
+    WORDIR:指定在容器创建后，终端默认登录进来工作目录，一个落脚点
+
+6、ENV
+
+    ENV：用来在构建镜像过程中设置环境变量。
+
+    举例：ENV MY_PATH /usr/mytest
+
+    ENV这个环境变量可以在后续的任何RUN指令中使用，这就如同在命令前指定了环境变量前缀一样；也可以在其他指令中直接使用这些环境变量，比如WORKDIR $MY_PATH
+
+7、ADD
+
+    ADD：将宿主机目录下的文件拷贝到镜像里面并且ADD命令会自动处理URL和解压tar压缩包
+
+8、COPY
+
+    COPY:类似ADD,拷贝文件和目录到镜像中，但是它只是拷贝，不会自动处理URL和解压tar压缩包。COPY将从构建上下文目录中<源路径>的文件/目录复制到新的一层的镜像内的<目标路径>位置。
+
+    它的使用方法有两种：COPY src test和COPY ["src","dest"]
+
+9、VOLUME
+
+    VOLUME：容器数据卷，用于数据保存和持久化工作
+
+10、CMD
+
+    CMD：指定一个容器启动时要运行的命令。dockerfile中可以有多个CMD指令，但只有最后一个生效，CMD会被docker run之后的参数替换。
+
+    CMD指令的格式和RUN类似，也是两种格式：
+
+    a) shell格式：CMD <命令>
+
+    b) exec格式：CMD ['可执行文件'，‘参数1’，‘参数2’....]
+
+    c) 参数列表格式：CMD ['参数1'，‘参数2’...]，在指定了ENTRYPOINT指令后，用CMD指定具体的参数。
+
+11、ENTRYPOINT
+
+    ENTRYPOINT：指定一个容器启动时要运行的命令。ENTRYPOIT的目的和CMD一样，都是在指定容器启动程序及参数。
+
+    区别：CMD和ENTRYPOINT都是指定一个容器启动时要运行的命令，但是 如果dockerfile中可以有多个CMD指令，只有最后一个生效 ，CMD会被docker run之后的参数替换 ；而有多个ENTRYPOINT指令，每个指令都生效，这就是CMD和ENTRYPOINT的区别。
+
+12、ONBUILD（触发器）
+
+    当构建一个被继承的Dockerfile时运行命令，父镜像在被子继承后，父镜像的onbuild被触发。 
