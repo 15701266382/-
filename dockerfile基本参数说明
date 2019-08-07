@@ -1,3 +1,6 @@
+  
+  原文来自于： http://blog.itpub.net/28916011/viewspace-2213324/
+  
   Dockerfile是用来构建Docker镜像的构建文件，是由一系列命令和参数构成的脚本。
 
     构建三步骤：1、编写dockerfile文件；2、docker build；3、docker run
