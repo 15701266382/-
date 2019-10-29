@@ -1,0 +1,12 @@
+docker images 查看镜像文件
+docker ps -a 查看容器
+docker build -t name:version . 构建镜像
+docker run --name name -p 宿主机端口:容器端口 -d 镜像名:版本
+docker logs --tail=true -f 容器名
+docker image inspect 镜像名：版本
+lyuzb 17:10:37
+docker stop 容器名 停止容器
+docker rm 容器名 删除容器
+docker rmi 镜像名：版本 删除镜像
+docker pull 镜像名：版本 拉取镜像到本地
+docker push 镜像名：版本 提交镜像到私有仓库
