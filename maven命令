@@ -1,0 +1,12 @@
+mvn clean 
+mvn package 
+mvn install
+
+mvn deploy:deploy-file -DgroupId=com.thtf.dataplatform -DartifactId=blood-ralation-model -Dversion=0.3.0 -Dpackaging=jar 
+-Dfile=C:\Users\386906718qq.com\Desktop\k8s\blood-ralation-model-0.3.0.jar -Durl=仓库路径 -DrepositoryId=密码对饮id
+
+
+例如：
+
+mvn deploy:deploy-file -DgroupId=com.thtf.dataplatform -DartifactId=blood-ralation-model -Dversion=0.3.0 
+-Dpackaging=jar -Dfile=C:\Users\386906718qq.com\Desktop\k8s\blood-ralation-model-0.3.0.jar -Durl=http://ip:port/repository/maven-releases/ -DrepositoryId=releases
