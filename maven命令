@@ -14,3 +14,10 @@ mvn deploy:deploy-file -DgroupId=com.thtf.dataplatform -DartifactId=blood-ralati
 
 将本地jar包安装到本地仓库
 mvn install:install-file -DgroupId=com.ibm.db2 -DartifactId=db2jcc -Dversion=3.72.44 -Dpackaging=jar -Dfile=db2jcc-3.72.44.jar
+
+
+--settings 可以指定maven的settings.xml配置文件
+例如：
+
+E:\flinkx-1.8.1\flinkx\jars>mvn install:install-file -DgroupId=com.ibm.db2 -DartifactId=db2jcc -Dversion=3.72.44 -Dpackaging=jar -Dfile=db2jcc-3.72.44.jar  --settings D:\javaTool\apache-maven-3.5.3-bin\apache-maven-3.5.3\conf\sett
+ings.xml
